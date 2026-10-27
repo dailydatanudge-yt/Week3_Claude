@@ -1,0 +1,67 @@
+{
+  "issues": [
+    {
+      "column": "customer",
+      "row_hint": "order_id 1002 (data row 2)",
+      "problem": "Missing customer name (empty value)",
+      "severity": "high"
+    },
+    {
+      "column": "order_date",
+      "row_hint": "order_id 1002 (data row 2)",
+      "problem": "Date '05/01/2026' uses a different format (DD/MM/YYYY or MM/DD/YYYY, ambiguous) than the ISO YYYY-MM-DD used elsewhere",
+      "severity": "medium"
+    },
+    {
+      "column": "quantity",
+      "row_hint": "order_id 1003 (data row 3)",
+      "problem": "Negative quantity (-1); may be a return or a data entry error",
+      "severity": "high"
+    },
+    {
+      "column": "region",
+      "row_hint": "order_id 1003 (data row 3)",
+      "problem": "Inconsistent casing: 'west' vs. capitalized values like 'South', 'North', 'East'",
+      "severity": "low"
+    },
+    {
+      "column": "unit_price",
+      "row_hint": "order_id 1004 (data row 4)",
+      "problem": "Missing unit price (empty value), so order total cannot be computed",
+      "severity": "high"
+    },
+    {
+      "column": "order_date",
+      "row_hint": "order_id 1005 (data row 5)",
+      "problem": "Invalid date '2026-13-01': month 13 does not exist (possibly swapped day and month)",
+      "severity": "high"
+    },
+    {
+      "column": "order_id",
+      "row_hint": "order_id 1001 (data rows 1 and 6)",
+      "problem": "Duplicate record: order_id 1001 appears twice with identical values in every column",
+      "severity": "high"
+    },
+    {
+      "column": "region",
+      "row_hint": "order_id 1006 (data row 7)",
+      "problem": "Missing region (empty value)",
+      "severity": "medium"
+    },
+    {
+      "column": "quantity",
+      "row_hint": "order_id 1007 (data row 8)",
+      "problem": "Non-numeric quantity 'abc'",
+      "severity": "high"
+    }
+  ],
+  "summary": "The sample has significant quality problems, including a duplicate order, invalid and inconsistently formatted dates, missing values in customer, unit_price and region, a negative quantity, a non-numeric quantity, and inconsistent region casing, so it should not be loaded without cleaning.",
+  "suggested_fixes": [
+    "Remove the duplicate row for order_id 1001 and enforce a uniqueness constraint on order_id",
+    "Fill or reject rows with missing customer, unit_price, or region; try to recover values from source systems and flag unrecoverable rows for review",
+    "Standardize all dates to ISO 8601 (YYYY-MM-DD), confirm the source format of '05/01/2026', and investigate the invalid '2026-13-01'",
+    "Validate quantity as a positive integer; quarantine 'abc' and -1 for review, and confirm whether negatives represent returns that belong in a separate field or table",
+    "Normalize region values to a consistent case (e.g. title case) or map them to a controlled list of allowed values",
+    "Add schema validation (types, not-null, range checks) at ingestion to catch these issues earlier"
+  ]
+}

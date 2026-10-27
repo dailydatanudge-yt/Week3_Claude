@@ -1,0 +1,9 @@
+order_id,customer,product,quantity,unit_price,order_date,region
+1001,Asha Rao,Laptop,1,55000,2026-01-05,South
+1002,,Mouse,2,799,05/01/2026,North
+1003,Vikram Shah,Keyboard,-1,1500,2026-01-07,west
+1004,Meera Nair,Monitor,1,,2026-01-08,South
+1005,Rohan Das,Laptop,1,55000,2026-13-01,East
+1001,Asha Rao,Laptop,1,55000,2026-01-05,South
+1006,Anita Joshi,Headset,3,2200,2026-01-10,
+1007,Kiran Patel,Mouse,abc,799,2026-01-11,North
